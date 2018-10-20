@@ -61,7 +61,7 @@ And I should see "NEO Reference ID: 3794979"
 
 Page should look something like this:
 
-![feature mockup](./lib/assets/images/asteroids_mockup.png)
+![feature mockup](./lib/assets/asteroids_mockup.png)
 
 ### Feature 2: API - Retrieving a user's favorites
 
