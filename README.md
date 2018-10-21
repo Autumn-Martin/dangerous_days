@@ -38,12 +38,12 @@ Work through the following challenges. The first section is easier so it should 
 
 ### Feature 1: Most Dangerous Day
 
-```
 Background:
 * This story should use the Asteroids Neo - Feed: https://api.nasa.gov/api.html#neows-feed
 
 Feature: A guest user visits the root page and enters a start date and end date. The resulting page will display the most dangerous day in that range based on which day has the most `is_potentially_dangerous_asteroid` set to `true`. Given the scenario below, it should be January 1, 2018 with 3 potentially dangerous asteroids.
 
+```
 As a guest user
 When I visit "/"
 And I enter "2018-01-01" into the start date
