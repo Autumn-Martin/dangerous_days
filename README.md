@@ -1,6 +1,13 @@
 # Dangerous Days
 Date: October 20, 2018. Module 3 Project.
 
+## Set up
+1. Clone down this repo.
+2. Run the following in the command line: `bundle` and `rake db:{create,migrate,seed}`
+
+## Testing
+Run tests with `bundle exec rspec`
+
 ---------------------------------------------------------------------------------------------------------------------------
 # Module 3 Assessment
 
