@@ -2,8 +2,8 @@ class MostDangerousDayController < ApplicationController
   def index
     @conn = Faraday.new(url: "https://api.nasa.gov") do |faraday|
       faraday.params["api_key"] = ENV["neo_api_key"]
-      faraday.params["start_date"] = "2018-01-01"
-      faraday.params["end_date"] = "2018-01-07"
+      faraday.params["start_date"] = params["start_date"]
+      faraday.params["end_date"] = params["end_date"]
       faraday.adapter Faraday.default_adapter
     end
 
