@@ -19,19 +19,17 @@ class MostDangerousDayController < ApplicationController
     filtered_date_hash.each do |date, info_array|
       danger_count[date] = info_array.count
     end
-    # binding.pry
     most_dangerous_day = danger_count.sort_by { |date, count| count }[-1][0]
-    @most_dangerous_day = most_dangerous_day.to_s
-    # binding.pry
+    @most_dangerous_day = most_dangerous_day.to_s.to_datetime.strftime("%B %-d, %Y")
     @neos = filtered_date_hash[most_dangerous_day]
     @neo_count = @neos.count
-    # binding.pry
-    @start_date = params["start_date"]
-    @end_date = params["end_date"]
+
+    @start_date = params["start_date"].to_datetime.strftime("%B %-d, %Y")
+    @end_date = params["end_date"].to_datetime.strftime("%B %-d, %Y")
 
     # meteor_info_array.each do |meteor|
     #   puts meteor[:name]
     #   puts meteor[:neo_reference_id]
-    #
+    # end
   end
 end
