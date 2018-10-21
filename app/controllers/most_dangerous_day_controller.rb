@@ -1,14 +1,24 @@
 class MostDangerousDayController < ApplicationController
   def index
-    @conn = Faraday.new(url: "https://api.nasa.gov") do |faraday|
-      faraday.params["api_key"] = ENV["neo_api_key"]
-      faraday.params["start_date"] = params["start_date"]
-      faraday.params["end_date"] = params["end_date"]
-      faraday.adapter Faraday.default_adapter
+    # @search = DangerousDaySearch.new(params["start_date"], params["end_date"]) #eventual goal
+    def conn
+      Faraday.new(url: "https://api.nasa.gov") do |faraday|
+        faraday.params["api_key"] = ENV["neo_api_key"]
+        faraday.params["start_date"] = params["start_date"]
+        faraday.params["end_date"] = params["end_date"]
+        faraday.adapter Faraday.default_adapter
+      end
     end
-
-    response = @conn.get("/neo/rest/v1/feed")
-    days = JSON.parse(response.body, symbolize_names: true)[:near_earth_objects]
+    # binding.pry
+    # response = conn.get("/neo/rest/v1/feed")
+    def days
+      get_json("/neo/rest/v1/feed")
+    end
+    def get_json(url)
+      response = conn.get(url)
+      JSON.parse(response.body, symbolize_names: true)[:near_earth_objects]
+    end
+    # days = JSON.parse(response.body, symbolize_names: true)[:near_earth_objects]
     filtered_date_hash = {}
     days.each do |date, info_array|
       filtered_date_hash[date] = info_array.select do |hash|
