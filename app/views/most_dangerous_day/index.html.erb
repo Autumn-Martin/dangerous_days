@@ -1,6 +1,6 @@
 <h1>Most Dangerous Day</h1>
 <p><%= @start_date %> - <%= @end_date %></p>
-<h2><%= @dangerous_day.date %> has <%= @neos.count %> potentially dangerous near earth objects</h2>
+<h2><%= @most_dangerous_day %> has <%= @neo_count %> potentially dangerous near earth objects</h2>
 <% @neos.each do |neo| %>
 <ul class="neo">
   <li>neo.name</li>
