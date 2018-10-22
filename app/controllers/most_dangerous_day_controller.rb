@@ -9,29 +9,38 @@ class MostDangerousDayController < ApplicationController
         faraday.adapter Faraday.default_adapter
       end
     end
-    # binding.pry
-    # response = conn.get("/neo/rest/v1/feed")
+
     def days
       get_json("/neo/rest/v1/feed")
     end
+
     def get_json(url)
-      response = conn.get(url)
-      JSON.parse(response.body, symbolize_names: true)[:near_earth_objects]
+      JSON.parse(conn.get(url).body, symbolize_names: true)[:near_earth_objects]
     end
-    # days = JSON.parse(response.body, symbolize_names: true)[:near_earth_objects]
-    filtered_date_hash = {}
-    days.each do |date, info_array|
-      filtered_date_hash[date] = info_array.select do |hash|
+
+    def haz_days_data
+      filtered_date_hash = {}
+      days.each do |date, info_array|
+        binding.pry
+        filtered_date_hash[date] = potentially_hazardous?(info_array)
+      end
+    end
+    def potentially_hazardous?(info_array)
+      info_array.select do |hash|
         hash[:is_potentially_hazardous_asteroid]
       end
     end
-    danger_count = {}
-    filtered_date_hash.each do |date, info_array|
-      danger_count[date] = info_array.count
+
+    def most_dangerous_day
+      danger_counts = {}
+      haz_days_data.each do |date, info_array|
+        danger_counts[date] = info_array.count
+      end
+      danger_counts.sort_by { |date, count| count }[-1][0]
     end
-    most_dangerous_day = danger_count.sort_by { |date, count| count }[-1][0]
+
     @most_dangerous_day = most_dangerous_day.to_s.to_datetime.strftime("%B %-d, %Y")
-    @neos = filtered_date_hash[most_dangerous_day]
+    @neos = haz_days_data[most_dangerous_day]
     @neo_count = @neos.count
 
     @start_date = params["start_date"].to_datetime.strftime("%B %-d, %Y")
