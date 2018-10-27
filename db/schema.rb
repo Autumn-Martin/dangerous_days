@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180410152106) do
+ActiveRecord::Schema.define(version: 20181027220259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,16 @@ ActiveRecord::Schema.define(version: 20180410152106) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_api_keys_on_user_id"
+  end
+
+  create_table "asteroids", force: :cascade do |t|
+    t.string "name"
+    t.string "neo_reference_id"
+    t.boolean "is_potentially_hazardous_asteroid"
+    t.bigint "favorite_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["favorite_id"], name: "index_asteroids_on_favorite_id"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -40,5 +50,6 @@ ActiveRecord::Schema.define(version: 20180410152106) do
   end
 
   add_foreign_key "api_keys", "users"
+  add_foreign_key "asteroids", "favorites"
   add_foreign_key "favorites", "users"
 end
