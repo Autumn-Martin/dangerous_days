@@ -7,6 +7,8 @@ describe 'Favorites API' do
 
     get "/api/v1/user/favorites?api_key=#{user.api_key}"
 
+    favorites = JSON.parse(response.body)
     expect(response).to be_successful
+    expect(favorites.count).to eq(3)
   end
 end
