@@ -1,6 +1,16 @@
 <h1>Most Dangerous Day</h1>
-<p><%= @search.formatted_start_date %> - <%= @search.formatted_end_date %></p>
-<h2><span class="most_dangerous_day"><%= @search.most_dangerous_day %></span> has <%= @search.neos.count %> potentially dangerous near earth objects</h2>
+
+<p>
+  <%= @search.formatted(@search.start_date)%> - <%= @search.formatted(@search.end_date) %>
+</p>
+
+<h2>
+  <span class="most_dangerous_day">
+    <%= @search.formatted(@search.most_dangerous_day) %>
+  </span>
+  has <%= @search.neos.count %> potentially dangerous near earth objects
+</h2>
+
 <% @search.neos.each do |neo| %>
 <ul class="neo">
   <li class="name">Name: <%= neo.name %></li>
