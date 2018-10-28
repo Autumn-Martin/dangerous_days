@@ -23,7 +23,6 @@ describe 'Favorites API' do
   it 'sends the info expected by the user story' do
     user = create(:user, id: 1)
     favorite = create(:favorite, id: 1, user_id: user.id, neo_reference_id: "2153306")
-    create(:asteroid, name: "153306 (2001 JL1)", is_potentially_hazardous_asteroid: false, favorite_id: favorite.id)
 
     get "/api/v1/user/favorites?api_key=#{user.api_key}"
 
