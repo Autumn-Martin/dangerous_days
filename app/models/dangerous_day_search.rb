@@ -37,7 +37,7 @@ class DangerousDaySearch
   end
 
   def service
-    NasaNeoService.new(@start_date, @end_date)
+    NasaNeoDateService.new(@start_date, @end_date)
   end
 
 end
